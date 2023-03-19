@@ -16,7 +16,14 @@ Before following the below instructions, make sure that you have [Go](https://go
     ```bash
     go get github.com/prasenjeetpaul/tag_along_app
     ```
+
+    If the above command fails, try the below two commands to install the dependencies manually:
+    ```bash
+    go get github.com/google/uuid
+    go get github.com/gin-gonic/gin
+    ```
 4. Once all the dependencies are downloaded, run the application using the below command from the same folder:
     ```bash
     go run .
     ```
+5. Application API would start on `localhost:8080`. You can access the API directly by a web browser or by tools like Postman, etc
