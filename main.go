@@ -20,11 +20,23 @@ func main() {
 
     groupRouter := router.Group("/groups")
     {
+        groupRouter.Use(validateUserMiddleWare())
         groupRouter.GET("", getAllPublicGroups)
-        groupRouter.GET("/:groupID",getGroupByID)
+        groupRouter.GET("/:groupID", getGroupByID)
         groupRouter.GET("/user/:userID", getGroupsByUserID)
         groupRouter.POST("", createGroup)
         groupRouter.PUT("", updateGroup)
+    }
+    
+    eventRouter := router.Group("/events")
+    {
+        eventRouter.Use(validateGroupMiddleWare())
+        eventRouter.Use(validateUserMiddleWare())
+        eventRouter.GET("/:eventID", getEventByID)
+        eventRouter.GET("/group/:groupID", getEventByGroupID)
+        eventRouter.GET("/user/:userID", getEventByUserID)
+        eventRouter.POST("", createEvent)
+        eventRouter.PUT("", updateEvent)
     }
 
     router.Run()

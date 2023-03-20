@@ -71,3 +71,25 @@ func updateUser(c *gin.Context) {
 
     c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 }
+
+func validateUserMiddleWare() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        userID := c.Param("userID")
+        if userID == "" || validateUser(userID) {
+            c.Next()
+        } else {
+            c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+        }
+    }
+}
+
+func validateUser(userID string) bool {
+    isValidUser := false
+    for _, user := range users {
+        if user.ID == userID {
+            isValidUser = true
+            break
+        }
+    }
+    return isValidUser
+}

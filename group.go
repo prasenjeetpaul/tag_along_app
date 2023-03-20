@@ -103,3 +103,25 @@ func userExistInUserList(userList []string, userID string) bool {
     }
     return false
 }
+
+func validateGroupMiddleWare() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        groupID := c.Param("groupID")
+        if groupID == "" || validateGroup(groupID) {
+            c.Next()
+        } else {
+            c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Group not found"})
+        }
+    }
+}
+
+func validateGroup(groupID string) bool {
+    isValidGroup := false
+    for _, group := range groups {
+        if group.ID == groupID {
+            isValidGroup = true
+            break
+        }
+    }
+    return isValidGroup
+}
