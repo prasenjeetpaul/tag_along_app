@@ -16,6 +16,7 @@ func main() {
         userRouter.GET("/:userID", getUserByID)
         userRouter.POST("", createUser)
         userRouter.PUT("", updateUser)
+        userRouter.GET("/validate", validateUserForLogin)
     }
 
     groupRouter := router.Group("/groups")
@@ -39,5 +40,6 @@ func main() {
         eventRouter.PUT("", updateEvent)
     }
 
+    createDefaultUsers()
     router.Run()
 }

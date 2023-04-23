@@ -2,6 +2,7 @@ package main
 
 import (
     "time"
+    "fmt"
     "net/http"
 
     "github.com/gin-gonic/gin"
@@ -14,9 +15,37 @@ type User struct {
     Email       string `json:"email"`
     Gender      string `json:"gender"`
     DateOfBirth time.Time `json:"dateOfBirth"`
+    Password    string `json:"password"`
 }
 
 var users = make([]User, 0)
+
+func createDefaultUsers() {
+    dob1, err1 := time.Parse(time.RFC3339, "1997-07-31T00:00:00Z")
+    dob2, err2 := time.Parse(time.RFC3339, "1998-01-21T00:00:00Z")
+    if err1 != nil || err2 != nil {
+        fmt.Println("Error parsing date string:")
+        return
+    }
+    newUser1:= User{
+        ID: uuid.New().String(),
+        Name: "Prasenjeet Paul",
+        Email: "ppaul8@uncc.edu",
+        Gender: "M",
+        DateOfBirth: dob1,
+        Password: "123456",
+    }
+    newUser2:= User{
+        ID: uuid.New().String(),
+        Name: "Srujitha Gali",
+        Email: "lgali@uncc.edu",
+        Gender: "F",
+        DateOfBirth: dob2,
+        Password: "123456",
+    }
+    users = append(users, newUser1)
+    users = append(users, newUser2)
+}
 
 func getUsers(c *gin.Context) {
     c.JSON(http.StatusOK, users)
@@ -32,6 +61,21 @@ func getUserByID(c *gin.Context) {
     }
     c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 }
+
+
+func validateUserForLogin(c *gin.Context) {
+    userEmail := c.Query("userEmail")
+    password := c.Query("password")
+    fmt.Println(userEmail, password)
+    for _, user := range users {
+        if user.Email == userEmail && user.Password == password {
+            c.JSON(http.StatusOK, user)
+            return
+        }
+    }
+    c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+}
+
 
 func createUser(c *gin.Context) {
     var newUser User
