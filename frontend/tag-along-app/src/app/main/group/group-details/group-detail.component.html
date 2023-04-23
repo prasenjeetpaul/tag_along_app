@@ -1,53 +1,24 @@
-<div class="my-5 d-flex justify-content-center">
-    <h2>Welcome To Tag-Along, Prasenjeet!!</h2>
+<div class="d-flex justify-content-center" *ngIf="!groupData">
+    <div class="spinner-border text-primary" role="status">
+    </div>
 </div>
-<div class="m-5 p-5 card">
-    <h3 class="mb-4">SPL - Spring 2023</h3>
-    <p>
-        What is Lorem Ipsum?
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-        and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-        leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-        with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-        publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    </p>
+<div class="m-5 p-5 card" *ngIf="groupData">
+    <h3 class="mb-4">{{groupData?.name}}</h3>
+    <p>{{groupData?.description}}</p>
+    <div class="my-2 d-flex flex-wrap align-items-center">
+        <span class="me-2 mb-2">
+            <h6 class="d-inline-block m-0">Created By:</h6>
+        </span>
+        <div class="d-flex align-items-center flex-wrap">
+            <user-pill [userID]="groupData!.createdBy"></user-pill>
+        </div>
+    </div>
     <div class="my-2 d-flex flex-wrap align-items-center">
         <span class="me-2 mb-2">
             <h6 class="d-inline-block m-0">Group Members:</h6>
         </span>
         <div class="d-flex align-items-center flex-wrap">
-            <div class="d-flex border p-2 rounded me-2 mb-2">
-                <span class="material-symbols-outlined me-2">
-                    face_6
-                </span>
-                <span>Prasenjeet Paul</span>
-            </div>
-            <div class="d-flex border p-2 rounded me-2 mb-2">
-                <span class="material-symbols-outlined me-2">
-                    face_3
-                </span>
-                <span>Vaishnavi</span>
-            </div>
-            <div class="d-flex border p-2 rounded me-2 mb-2">
-                <span class="material-symbols-outlined me-2">
-                    face_3
-                </span>
-                <span>Medha Gitay</span>
-            </div>
-        </div>
-    </div>
-    <div class="my-2 d-flex flex-wrap align-items-center">
-        <span class="me-2 mb-2">
-            <h6 class="d-inline-block m-0">Users Invited:</h6>
-        </span>
-        <div class="d-flex align-items-center flex-wrap">
-            <div class="d-flex border p-2 rounded me-2 mb-2">
-                <span class="material-symbols-outlined me-2">
-                    face_6
-                </span>
-                <span>Divam Arora</span>
-            </div>
+            <user-pill [userID]="memberID" *ngFor="let memberID of groupData?.userList"></user-pill>
         </div>
     </div>
 

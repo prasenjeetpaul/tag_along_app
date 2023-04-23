@@ -16,6 +16,7 @@ import { NewGroupComponent } from './main/group/new-group/new-group.component';
 import { NewEventComponent } from './main/event/new-event/new-event.component';
 import { AuthGuardService } from './auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserPillComponent } from './util/user-pill/user-pill.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     GroupDetailComponent,
     NewGroupComponent,
-    NewEventComponent
+    NewEventComponent,
+    UserPillComponent
   ],
   imports: [
     BrowserModule,

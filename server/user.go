@@ -4,6 +4,7 @@ import (
     "time"
     "fmt"
     "net/http"
+    "errors"
 
     "github.com/gin-gonic/gin"
     "github.com/google/uuid"
@@ -23,8 +24,9 @@ var users = make([]User, 0)
 func createDefaultUsers() {
     dob1, err1 := time.Parse(time.RFC3339, "1997-07-31T00:00:00Z")
     dob2, err2 := time.Parse(time.RFC3339, "1998-01-21T00:00:00Z")
-    if err1 != nil || err2 != nil {
-        fmt.Println("Error parsing date string:")
+    dob3, err3 := time.Parse(time.RFC3339, "1996-03-17T00:00:00Z")
+    if err1 != nil || err2 != nil || err3 != nil {
+        fmt.Println("Error parsing date string")
         return
     }
     newUser1:= User{
@@ -43,8 +45,17 @@ func createDefaultUsers() {
         DateOfBirth: dob2,
         Password: "123456",
     }
+    newUser3:= User{
+        ID: uuid.New().String(),
+        Name: "Vaishnavi",
+        Email: "vbaiken@uncc.edu",
+        Gender: "F",
+        DateOfBirth: dob3,
+        Password: "123456",
+    }
     users = append(users, newUser1)
     users = append(users, newUser2)
+    users = append(users, newUser3)
 }
 
 func getUsers(c *gin.Context) {
@@ -62,6 +73,15 @@ func getUserByID(c *gin.Context) {
     c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 }
 
+
+func getUserByEmail(email string) (*User, error) {
+    for _, user := range users {
+        if user.Email == email {
+            return &user, nil
+        }
+    }
+    return nil, errors.New("User not found")
+}
 
 func validateUserForLogin(c *gin.Context) {
     userEmail := c.Query("userEmail")
@@ -87,6 +107,11 @@ func createUser(c *gin.Context) {
 
     if newUser.Gender != "M" && newUser.Gender != "F" {
         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Gender type"})
+        return
+    }
+
+    if validateUser(newUser.Email) {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "User email already exist!"})
         return
     }
 
@@ -131,6 +156,10 @@ func validateUser(userID string) bool {
     isValidUser := false
     for _, user := range users {
         if user.ID == userID {
+            isValidUser = true
+            break
+        }
+        if user.Email == userID {
             isValidUser = true
             break
         }

@@ -20,6 +20,33 @@ type Group struct {
 
 var groups = make([]Group, 0)
 
+func createDefaultGroups() {
+    defaultGroups := []Group{
+        {
+            ID:          uuid.New().String(),
+            Name:        "SPL - Spring 2023",
+            Description: "A group to discuss about SPL subject. Open to any intellectual discussions abou the subject",
+            IsPublic:    true,
+            CreatedBy:   users[0].ID,
+            UserList:    []string{users[0].ID, users[1].ID, users[2].ID},
+            EventList:   []string{},
+        },
+        {
+            ID:          uuid.New().String(),
+            Name:        "Coffee Addicts",
+            Description: "A group to hang out and share coffee breaks. General Guidelines:\n"+
+            "1. Casual Coffee Meet-Ups \n"+
+            "2. No course work related discussions \n" +
+            "3. No black coffee!",
+            IsPublic:    false,
+            CreatedBy:   users[1].ID,
+            UserList:    []string{users[1].ID, users[2].ID},
+            EventList:   []string{},
+        },
+    }
+    groups = append(groups, defaultGroups...)
+}
+
 
 func getAllPublicGroups(c *gin.Context) {
     publicGroups := make([]Group, 0)
@@ -63,6 +90,15 @@ func createGroup(c *gin.Context) {
         return
     }
 
+    var validUserIDs []string
+    for _, userEmail := range newGroup.UserList {
+        user, err := getUserByEmail(userEmail)
+        if err != nil {
+            continue
+        }
+        validUserIDs = append(validUserIDs, user.ID)
+    }
+    newGroup.UserList = validUserIDs
     newGroup.ID = uuid.New().String()
     groups = append(groups, newGroup)
     c.JSON(http.StatusCreated, newGroup)

@@ -1,6 +1,3 @@
-<div class="my-5 d-flex justify-content-center">
-    <h2>Welcome To Tag-Along, Prasenjeet!!</h2>
-</div>
 <div class="m-5 p-5 card">
     <h3 class="mb-3">Your Events</h3>
     <div class="event-card-container">
@@ -166,136 +163,21 @@
         </button>
     </div>
     <div class="group-card-container row">
-        <div class="col-12 col-lg-6 my-2 p-2 group-card">
+        <div class="col-12 col-lg-6 my-2 p-2 group-card" *ngFor="let group of groups">
             <div class="border rounded p-4 h-100 d-flex flex-column">
-                <h4 class="mb-4"><a routerLink="/group/1">SPL - Spring 2023</a></h4>
-                <p class="mb-4">
-                    A group to discuss about SPL subject.
-                    Open to any intellectual discussions abou the subject
-                </p>
+                <h4 class="mb-4"><a [routerLink]="'/group/'+group.id">{{group.name}}</a></h4>
+                <p class="mb-4" style="white-space: pre-wrap;">{{group.description}}</p>
                 <div class="d-flex mb-2 align-items-center flex-wrap">
-                    <h6 class="me-2">Created By:</h6>
-                    <div class="d-flex border p-2 rounded">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Stephen Mark</span>
-                    </div>
+                    <h6 class="me-2 my-0">Created By:</h6>
+                    <user-pill [userID]="group.createdBy"></user-pill>
                 </div>
                 <h6 class="mb-2">Group Members:</h6>
                 <div class="d-flex align-items-center flex-wrap">
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Prasenjeet Paul</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Vaishnavi</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Medha Gitay</span>
-                    </div>
+                    <user-pill [userID]="memberID" *ngFor="let memberID of group.userList"></user-pill>
                 </div>
                 <div class="h-100"></div>
                 <div class="d-flex mt-3 justify-content-end ">
                     <button class="btn btn-outline-danger">Leave Group</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6 my-2 p-2 group-card">
-            <div class="border rounded p-4 h-100 d-flex flex-column">
-                <h4 class="mb-4">Coffee Addicts</h4>
-                <p class="mb-4">
-                    A group to hang out and share coffee breaks.
-                    General Guidelines:
-                    <br>1. Casual Coffee Meet-Ups
-                    <br>2. No course work related discussions
-                    <br>3. No black coffee!
-                </p>
-                <div class="d-flex mb-2 align-items-center flex-wrap">
-                    <h6 class="me-2">Created By:</h6>
-                    <div class="d-flex border p-2 rounded">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Stephen Mark</span>
-                    </div>
-                </div>
-                <h6 class="mb-2">Group Members:</h6>
-                <div class="d-flex align-items-center flex-wrap">
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Prasenjeet Paul</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Vasu Tiwari</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Kriti Sanon</span>
-                    </div>
-                </div>
-                <div class="h-100"></div>
-                <div class="d-flex mt-3 justify-content-end">
-                    <button class="btn btn-outline-danger">Leave Group</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6 my-2 p-2 group-card">
-            <div class="border rounded p-4 h-100 d-flex flex-column">
-                <h4 class="mb-4">Niner Football Club
-                    <span class="text-warning">- Invited</span>
-                </h4>
-                <p class="mb-4">
-                    A group which is enthusiastic about Football!!
-                </p>
-                <div class="d-flex mb-2 align-items-center flex-wrap">
-                    <h6 class="me-2">Created By:</h6>
-                    <div class="d-flex border p-2 rounded">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Stephen Mark</span>
-                    </div>
-                </div>
-                <h6 class="mb-2">Group Members:</h6>
-                <div class="d-flex align-items-center flex-wrap">
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Stephen Mark</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Lisa Ashbrook</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Andrew Tate</span>
-                    </div>
-                </div>
-                <div class="h-100"></div>
-                <div class="d-flex mt-3 justify-content-end">
-                    <button class="btn btn-outline-warning">Cancel Invite</button>
                 </div>
             </div>
         </div>

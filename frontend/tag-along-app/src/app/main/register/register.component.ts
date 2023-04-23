@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
                 Swal.fire({
                     icon: 'error',
                     title: 'Registration Failed',
-                    text: 'Please verify the details and try agin after sometime!',
+                    text: (err && err.error) ? err.error.error : 'Please verify the details and try agin after sometime!',
                 });
             }
         })

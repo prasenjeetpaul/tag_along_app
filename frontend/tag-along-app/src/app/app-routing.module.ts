@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {
     path: 'group',
+    canActivate: [AuthGuardService],
     children: [
       { path: 'new', component: NewGroupComponent },
       { path: ':id', component: GroupDetailComponent }
@@ -21,6 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'event',
+    canActivate: [AuthGuardService],
     children: [
       { path: 'new', component: NewEventComponent },
     ]
