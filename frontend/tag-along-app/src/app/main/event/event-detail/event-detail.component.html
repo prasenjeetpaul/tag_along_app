@@ -1,0 +1,52 @@
+<div class="border rounded p-4 my-3 event-card">
+    <div class="d-flex flex-wrap justify-content-between mb-3">
+        <div class="d-flex align-items-center">
+            <h5 class="m-0 me-1">{{event.name}}</h5>
+            <span [ngClass]="{'text-success': isEventAccepted, 'text-warning': !isEventAccepted}">
+                - {{ isEventAccepted ? 'Going' : 'Pending'}}</span>
+            <span class="material-symbols-outlined"
+                [ngClass]="{'text-success': isEventAccepted, 'text-warning': !isEventAccepted}">
+                {{ isEventAccepted ? 'check' : 'priority_high'}}
+            </span>
+        </div>
+        <button class="btn btn-outline-danger btn-sm"
+            [ngClass]="{'btn-outline-danger': isEventAccepted, 'btn-outline-success': !isEventAccepted}">
+            {{ isEventAccepted ? 'Cancel RSVP' : 'Accept RSVP'}}
+        </button>
+    </div>
+
+    <p class="mb-4 text-pre-wrap">{{event.description}}</p>
+    <div class="my-2">
+        <div class="d-flex align-items-center mb-3">
+            <span class="material-symbols-outlined me-2">account_circle</span>
+            <div class="me-2 d-flex align-items-center">
+                <span class="d-inline-block me-2">Created By: </span>
+                <span>
+                    <a [routerLink]="'/group/'+event.createdBy">{{event.createdBy | groupName | async}}</a>
+                </span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center mb-3 flex-wrap">
+            <span class="material-symbols-outlined me-2">event</span>
+            <span class="me-3">Date: {{event.startTime | date:'MMM d, y (EEEE)'}}</span>
+        </div>
+        <div class="d-flex align-items-center mb-3 flex-wrap">
+            <span class="material-symbols-outlined me-2">schedule</span>
+            <span class="me-3">Time: {{event.startTime | date:'h:mm:ss a'}}</span>
+        </div>
+        <div class="d-flex align-items-center mb-3">
+            <span class="material-symbols-outlined me-2">timelapse</span>
+            <span class="me-3">Duration: {{event.duration}} Mins</span>
+        </div>
+    </div>
+    <div class="my-2 d-flex flex-wrap align-items-center">
+        <span class="me-2 mb-2">
+            <h6 class="d-inline-block m-0">Users Attending:</h6>
+        </span>
+        <div class="d-flex align-items-center flex-wrap">
+            <user-pill [userID]="memberID" *ngFor="let memberID of event.acceptedUsers"></user-pill>
+        </div>
+    </div>
+
+
+</div>

@@ -25,7 +25,7 @@ func createDefaultGroups() {
         {
             ID:          uuid.New().String(),
             Name:        "SPL - Spring 2023",
-            Description: "A group to discuss about SPL subject. Open to any intellectual discussions abou the subject",
+            Description: "A group to discuss about SPL subject. Open to any intellectual discussions about the subject",
             IsPublic:    true,
             CreatedBy:   users[0].ID,
             UserList:    []string{users[0].ID, users[1].ID, users[2].ID},

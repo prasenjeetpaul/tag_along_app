@@ -17,6 +17,8 @@ import { NewEventComponent } from './main/event/new-event/new-event.component';
 import { AuthGuardService } from './auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserPillComponent } from './util/user-pill/user-pill.component';
+import { GroupNamePipe } from './util/pipe/group-name.pipe';
+import { EventDetailComponent } from './main/event/event-detail/event-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { UserPillComponent } from './util/user-pill/user-pill.component';
     GroupDetailComponent,
     NewGroupComponent,
     NewEventComponent,
-    UserPillComponent
+    UserPillComponent,
+    GroupNamePipe,
+    EventDetailComponent
   ],
   imports: [
     BrowserModule,

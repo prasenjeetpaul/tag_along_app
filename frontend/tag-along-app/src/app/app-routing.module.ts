@@ -17,14 +17,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       { path: 'new', component: NewGroupComponent },
-      { path: ':id', component: GroupDetailComponent }
-    ]
-  },
-  {
-    path: 'event',
-    canActivate: [AuthGuardService],
-    children: [
-      { path: 'new', component: NewEventComponent },
+      { path: ':id', component: GroupDetailComponent },
+      { path: ':id/new-event', component: NewEventComponent },
     ]
   }
 ];

@@ -3,6 +3,7 @@ package main
 import (
     "time"
     "net/http"
+    "fmt"
 
     "github.com/gin-gonic/gin"
     "github.com/google/uuid"
@@ -21,6 +22,38 @@ type Event struct {
 }
 
 var events = make([]Event, 0)
+
+func createDefaultEvents() {
+    eventTime1, err1 := time.Parse(time.RFC3339, "2023-05-03T15:30:00Z")
+    eventTime2, err2 := time.Parse(time.RFC3339, "2023-05-05T18:00:00Z")
+    if err1 != nil || err2 != nil {
+        fmt.Println("Error parsing date string")
+        return
+    }
+    defaultEvents := []Event{
+        {
+            ID:          uuid.New().String(),
+            Name:        "SPL Final Project Discussion",
+            Description: "Hi team, please join this event to discuss about the planning and roadmap of the project. It is mandatory to attend this event if you want to understand and provide inputs to the final project plan.",
+            CreatedBy:   groups[0].ID,
+            StartTime:   eventTime1,
+            Duration:    60,
+            InvitedUsers:    []string{users[0].ID, users[1].ID, users[2].ID},
+            AcceptedUsers:   []string{users[0].ID},
+        },
+        {
+            ID:          uuid.New().String(),
+            Name:        "Coffee Hangout",
+            Description: "Just a casual hangout with friends. Dont forget to bring your fav coffee cup!",
+            CreatedBy:   groups[1].ID,
+            StartTime:   eventTime2,
+            Duration:    30,
+            InvitedUsers:    []string{users[1].ID, users[2].ID},
+            AcceptedUsers:   []string{users[1].ID, users[2].ID},
+        },
+    }
+    events = append(events, defaultEvents...)
+}
 
 func getEventByID( c *gin.Context) {
     eventID := c.Param("eventID")
@@ -64,6 +97,26 @@ func createEvent(c *gin.Context) {
         return
     }
 
+    var validInvitedUserIDs []string
+    for _, userEmail := range newEvent.InvitedUsers {
+        user, err := getUserByEmail(userEmail)
+        if err != nil {
+            continue
+        }
+        validInvitedUserIDs = append(validInvitedUserIDs, user.ID)
+    }
+    
+    var validAcceptedUserIDs []string
+    for _, userEmail := range newEvent.AcceptedUsers {
+        user, err := getUserByEmail(userEmail)
+        if err != nil {
+            continue
+        }
+        validAcceptedUserIDs = append(validAcceptedUserIDs, user.ID)
+    }
+    
+    newEvent.InvitedUsers = validInvitedUserIDs
+    newEvent.AcceptedUsers = validAcceptedUserIDs
     newEvent.ID = uuid.New().String()
     events = append(events, newEvent)
     c.JSON(http.StatusCreated, newEvent)

@@ -42,5 +42,6 @@ func main() {
 
     createDefaultUsers()
     createDefaultGroups()
+    createDefaultEvents()
     router.Run()
 }

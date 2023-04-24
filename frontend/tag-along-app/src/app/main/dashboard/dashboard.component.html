@@ -1,155 +1,7 @@
 <div class="m-5 p-5 card">
     <h3 class="mb-3">Your Events</h3>
-    <div class="event-card-container">
-        <div class="border rounded p-4 my-3 event-card">
-            <div class="d-flex flex-wrap justify-content-between mb-3">
-                <h5 class="m-0">Coffee Hangout</h5>
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-success btn-sm disabled d-flex align-items-center me-3">
-                        Going
-                        <span class=" material-symbols-outlined text-success">
-                            check
-                        </span>
-                    </button>
-                    <button class="btn btn-outline-danger  btn-sm">Cancel RSVP</button>
-                </div>
-            </div>
-
-            <p class="mb-4">Just a casual hangout with friends. Dont forget to bring your fav
-                coffee cup!
-            </p>
-            <div class="my-2">
-                <div class="d-flex align-items-center mb-3">
-                    <span class="material-symbols-outlined me-2">
-                        account_circle
-                    </span>
-                    <div class="me-2 d-flex align-items-center">
-                        <span class="d-inline-block me-2">
-                            Created By:
-                        </span>
-                        <div class="d-flex border p-2 rounded">
-                            <span class="material-symbols-outlined me-2">
-                                face_6
-                            </span>
-                            <span>Stephen Mark</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center mb-3 flex-wrap">
-                    <span class="material-symbols-outlined me-2">
-                        event
-                    </span>
-                    <span class="me-3">
-                        Date: 29th April 2023
-                    </span>
-                    <span class="material-symbols-outlined me-2">
-                        schedule
-                    </span>
-                    <span class="me-3">
-                        Time: 5.30 PM
-                    </span>
-                </div>
-                <div class="d-flex align-items-center mb-3">
-                    <span class="material-symbols-outlined me-2">
-                        timelapse
-                    </span>
-                    <span class="me-3">
-                        Duration: 60 mins
-                    </span>
-                </div>
-            </div>
-            <div class="my-2 d-flex flex-wrap align-items-center">
-                <span class="me-2 mb-2">
-                    <h6 class="d-inline-block m-0">Users Attending:</h6>
-                </span>
-                <div class="d-flex align-items-center flex-wrap">
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_6
-                        </span>
-                        <span>Prasenjeet Paul</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Vaishnavi</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Medha Gitay</span>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="border rounded p-4 my-3 event-card">
-            <div class="d-flex flex-wrap justify-content-between mb-3">
-                <h5 class="m-0">SPL Final Project Discussion</h5>
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-warning btn-sm disabled d-flex align-items-center me-3">
-                        Pending
-                        <span class=" material-symbols-outlined">
-                            priority_high
-                        </span>
-                    </button>
-                    <button class="btn btn-outline-success btn-sm">Accept RSVP</button>
-                </div>
-            </div>
-
-            <p class="mb-4">
-                Hi team, please join this event to discuss about the planning and roadmap of the project.
-                It is mandatory to attend this event if you want to understand and provide inputs to the
-                final
-                project plan.
-            </p>
-            <div class="my-2">
-                <div class="d-flex align-items-center mb-3">
-                    <span class="material-symbols-outlined me-2">
-                        account_circle
-                    </span>
-                    <span class="me-3">Created By: Srujitha</span>
-                </div>
-                <div class="d-flex align-items-center mb-3 flex-wrap">
-                    <span class="material-symbols-outlined me-2">
-                        event
-                    </span>
-                    <span class="me-3">Date: 24th April 2023</span>
-                    <span class="material-symbols-outlined me-2">
-                        schedule
-                    </span>
-                    <span class="me-3">Time: 12.30 PM</span>
-                </div>
-                <div class="d-flex align-items-center mb-3">
-                    <span class="material-symbols-outlined me-2">
-                        timelapse
-                    </span>
-                    <span class="me-3">Duration: 1.5 hrs</span>
-                </div>
-            </div>
-            <div class="my-2 d-flex flex-wrap align-items-center">
-                <span class="me-2 mb-2">
-                    <h6 class="d-inline-block m-0">Users Attending:</h6>
-                </span>
-                <div class="d-flex align-items-center flex-wrap">
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Srujitha</span>
-                    </div>
-                    <div class="d-flex border p-2 rounded me-2 mb-2">
-                        <span class="material-symbols-outlined me-2">
-                            face_3
-                        </span>
-                        <span>Vaishnavi</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="event-card-container" *ngIf="!isEventLoading; else loadingSection">
+        <app-event-detail [event]="event" *ngFor="let event of events"></app-event-detail>
     </div>
 </div>
 <div class="m-5 p-5 card">
@@ -162,11 +14,11 @@
             Create New Group
         </button>
     </div>
-    <div class="group-card-container row">
+    <div class="group-card-container row" *ngIf="!isGroupLoading; else loadingSection">
         <div class="col-12 col-lg-6 my-2 p-2 group-card" *ngFor="let group of groups">
             <div class="border rounded p-4 h-100 d-flex flex-column">
                 <h4 class="mb-4"><a [routerLink]="'/group/'+group.id">{{group.name}}</a></h4>
-                <p class="mb-4" style="white-space: pre-wrap;">{{group.description}}</p>
+                <p class="mb-4 text-pre-wrap">{{group.description}}</p>
                 <div class="d-flex mb-2 align-items-center flex-wrap">
                     <h6 class="me-2 my-0">Created By:</h6>
                     <user-pill [userID]="group.createdBy"></user-pill>
@@ -183,3 +35,10 @@
         </div>
     </div>
 </div>
+<ng-template #loadingSection>
+    <div class="d-flex my-5 justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+</ng-template>
