@@ -8,7 +8,7 @@ import { AppService } from 'src/app/app.service';
 import { Event } from 'src/app/models/event.model';
 
 @Component({
-    selector: 'app-group-detail',
+    selector: 'group-detail',
     templateUrl: './group-detail.component.html',
 })
 export class GroupDetailComponent implements OnInit {

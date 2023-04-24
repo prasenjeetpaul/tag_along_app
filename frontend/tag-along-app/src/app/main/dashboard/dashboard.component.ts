@@ -7,7 +7,7 @@ import { finalize } from 'rxjs';
 import { Event } from 'src/app/models/event.model';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'dashboard',
     templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {

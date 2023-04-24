@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-new-group',
+    selector: 'new-group',
     templateUrl: './new-group.component.html',
 })
 export class NewGroupComponent implements OnInit {

@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user.model';
 
 
 @Component({
-    selector: 'app-login',
+    selector: 'login',
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {

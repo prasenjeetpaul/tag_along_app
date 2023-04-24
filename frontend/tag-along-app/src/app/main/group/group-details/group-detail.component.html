@@ -31,7 +31,7 @@
         </button>
     </div>
     <div class="event-card-container" *ngIf="!isEventLoading; else loadingSection">
-        <app-event-detail [event]="event" *ngFor="let event of events"></app-event-detail>
+        <event-detail [event]="event" *ngFor="let event of events"></event-detail>
     </div>
 </div>
 

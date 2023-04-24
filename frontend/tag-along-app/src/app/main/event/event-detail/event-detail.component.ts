@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import { Event } from 'src/app/models/event.model';
 
 @Component({
-    selector: 'app-event-detail',
+    selector: 'event-detail',
     templateUrl: './event-detail.component.html',
 })
 export class EventDetailComponent implements OnInit {

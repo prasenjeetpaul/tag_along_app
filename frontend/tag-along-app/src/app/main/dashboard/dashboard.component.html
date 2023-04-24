@@ -1,7 +1,7 @@
 <div class="m-5 p-5 card">
     <h3 class="mb-3">Your Events</h3>
     <div class="event-card-container" *ngIf="!isEventLoading; else loadingSection">
-        <app-event-detail [event]="event" *ngFor="let event of events"></app-event-detail>
+        <event-detail [event]="event" *ngFor="let event of events"></event-detail>
     </div>
 </div>
 <div class="m-5 p-5 card">

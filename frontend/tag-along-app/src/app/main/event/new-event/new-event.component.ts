@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
-    selector: 'app-new-event',
+    selector: 'new-event',
     templateUrl: './new-event.component.html',
 })
 export class NewEventComponent implements OnInit {

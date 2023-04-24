@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 
 @Component({
-    selector: 'app-register',
+    selector: 'register',
     templateUrl: './register.component.html',
 })
 export class RegisterComponent implements OnInit {
