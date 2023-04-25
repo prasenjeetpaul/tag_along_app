@@ -29,7 +29,8 @@ export class NewEventComponent implements OnInit {
             this.eventForm = this.fb.group({
                 'name': ['', Validators.required],
                 'description': ['', Validators.required],
-                'createdBy': [groupID, Validators.required],
+                'groupId': [groupID, Validators.required],
+                'createdBy': [this.appService.loggedInUser!.id, Validators.required],
                 'startTime': ['', Validators.required],
                 'duration': ['', Validators.required],
                 'invitedUsers': this.fb.array([

@@ -1,7 +1,7 @@
 <div class="m-5 p-5 card">
     <h3 class="mb-3">Your Events</h3>
     <div class="event-card-container" *ngIf="!isEventLoading; else loadingSection">
-        <event-detail [event]="event" *ngFor="let event of events"></event-detail>
+        <event-detail [event]="event" *ngFor="let event of events" (onStatusChange)="reloadPage()"></event-detail>
     </div>
 </div>
 <div class="m-5 p-5 card">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="h-100"></div>
                 <div class="d-flex mt-3 justify-content-end ">
-                    <button class="btn btn-outline-danger">Leave Group</button>
+                    <button class="btn btn-outline-danger" (click)="leaveGroup(group)">Leave Group</button>
                 </div>
             </div>
         </div>

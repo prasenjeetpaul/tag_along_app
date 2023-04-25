@@ -3,6 +3,7 @@ export class Event {
     name: string = ''
     description: string = ''
     createdBy: string = ''
+    groupId: string = ''
     startTime: string = ''
     duration: number = -1
     invitedUsers: string[] = []

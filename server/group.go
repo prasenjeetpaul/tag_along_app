@@ -28,7 +28,7 @@ func createDefaultGroups() {
             Description: "A group to discuss about SPL subject. Open to any intellectual discussions about the subject",
             IsPublic:    true,
             CreatedBy:   users[0].ID,
-            UserList:    []string{users[0].ID, users[1].ID, users[2].ID},
+            UserList:    []string{users[0].ID, users[1].ID, users[2].ID, users[3].ID},
             EventList:   []string{},
         },
         {
@@ -40,7 +40,7 @@ func createDefaultGroups() {
             "3. No black coffee!",
             IsPublic:    false,
             CreatedBy:   users[1].ID,
-            UserList:    []string{users[1].ID, users[2].ID},
+            UserList:    []string{users[1].ID, users[2].ID, users[3].ID},
             EventList:   []string{},
         },
     }

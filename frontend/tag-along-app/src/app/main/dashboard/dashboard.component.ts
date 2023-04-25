@@ -50,8 +50,41 @@ export class DashboardComponent implements OnInit {
     }
 
 
-    isEventAccepted(event: Event): boolean {
-        return event.acceptedUsers.includes(this.appService.loggedInUser!.id)
+    reloadPage() {
+        this.ngOnInit();
+    }
+
+    leaveGroup(group: Group) {
+        Swal.fire({
+            title: 'Confirm Action',
+            html: 'Are you sure you want to leave <b>' + group.name + '</b>?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Leave Group',
+            confirmButtonColor: '#dc3545',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                group.userList = group.userList.filter(userId => userId != this.appService.loggedInUser!.id)
+                this.http.put('/groups', group)
+                    .subscribe({
+                        next: _ => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Left Group Successfully',
+                                text: 'Your response have been saved successfully'
+                            });
+                            this.reloadPage();
+                        },
+                        error: err => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Server Error',
+                                text: err.error && err.error.error && 'Something went wrong. Please try again after sometime.'
+                            });
+                        }
+                    })
+            }
+        })
     }
 
 }

@@ -25,7 +25,9 @@ func createDefaultUsers() {
     dob1, err1 := time.Parse(time.RFC3339, "1997-07-31T00:00:00Z")
     dob2, err2 := time.Parse(time.RFC3339, "1998-01-21T00:00:00Z")
     dob3, err3 := time.Parse(time.RFC3339, "1996-03-17T00:00:00Z")
-    if err1 != nil || err2 != nil || err3 != nil {
+    dob4, err4 := time.Parse(time.RFC3339, "1995-08-21T00:00:00Z")
+    dob5, err5 := time.Parse(time.RFC3339, "1995-01-13T00:00:00Z")
+    if err1 != nil || err2 != nil || err3 != nil || err4 != nil || err5 != nil {
         fmt.Println("Error parsing date string")
         return
     }
@@ -53,9 +55,27 @@ func createDefaultUsers() {
         DateOfBirth: dob3,
         Password: "123456",
     }
+    newUser4:= User{
+        ID: uuid.New().String(),
+        Name: "Poornima",
+        Email: "ppulakan@uncc.edu",
+        Gender: "F",
+        DateOfBirth: dob4,
+        Password: "123456",
+    }
+    newUser5:= User{
+        ID: uuid.New().String(),
+        Name: "Vasu Tiwari",
+        Email: "vtiwari2@uncc.edu",
+        Gender: "M",
+        DateOfBirth: dob5,
+        Password: "123456",
+    }
     users = append(users, newUser1)
     users = append(users, newUser2)
     users = append(users, newUser3)
+    users = append(users, newUser4)
+    users = append(users, newUser5)
 }
 
 func getUsers(c *gin.Context) {

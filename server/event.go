@@ -13,6 +13,7 @@ type Event struct {
     ID                      string      `json:"id"`
     Name                    string      `json:"name"`
     Description             string      `json:"description"`
+    GroupID                 string      `json:"groupId"`
     CreatedBy               string      `json:"createdBy"`
     StartTime               time.Time   `json:"startTime"`
     Duration                int         `json:"duration"`
@@ -26,7 +27,8 @@ var events = make([]Event, 0)
 func createDefaultEvents() {
     eventTime1, err1 := time.Parse(time.RFC3339, "2023-05-03T15:30:00Z")
     eventTime2, err2 := time.Parse(time.RFC3339, "2023-05-05T18:00:00Z")
-    if err1 != nil || err2 != nil {
+    eventTime3, err3 := time.Parse(time.RFC3339, "2023-05-07T18:30:00Z")
+    if err1 != nil || err2 != nil || err3 != nil {
         fmt.Println("Error parsing date string")
         return
     }
@@ -35,7 +37,8 @@ func createDefaultEvents() {
             ID:          uuid.New().String(),
             Name:        "SPL Final Project Discussion",
             Description: "Hi team, please join this event to discuss about the planning and roadmap of the project. It is mandatory to attend this event if you want to understand and provide inputs to the final project plan.",
-            CreatedBy:   groups[0].ID,
+            CreatedBy:   users[0].ID,
+            GroupID:     groups[0].ID,
             StartTime:   eventTime1,
             Duration:    60,
             InvitedUsers:    []string{users[0].ID, users[1].ID, users[2].ID},
@@ -45,11 +48,23 @@ func createDefaultEvents() {
             ID:          uuid.New().String(),
             Name:        "Coffee Hangout",
             Description: "Just a casual hangout with friends. Dont forget to bring your fav coffee cup!",
-            CreatedBy:   groups[1].ID,
+            CreatedBy:   users[1].ID,
+            GroupID:     groups[1].ID,
             StartTime:   eventTime2,
             Duration:    30,
-            InvitedUsers:    []string{users[1].ID, users[2].ID},
+            InvitedUsers:    []string{users[1].ID, users[2].ID, users[3].ID},
             AcceptedUsers:   []string{users[1].ID, users[2].ID},
+        },
+        {
+            ID:          uuid.New().String(),
+            Name:        "Trying Peppermint Mocha",
+            Description: "Hey all, I will be experimenting and trying the infamous Peppermint Mocha. Tag along if interested ;)",
+            CreatedBy:   users[1].ID,
+            GroupID:     groups[1].ID,
+            StartTime:   eventTime3,
+            Duration:    30,
+            InvitedUsers:    []string{users[1].ID},
+            AcceptedUsers:   []string{users[1].ID},
         },
     }
     events = append(events, defaultEvents...)
@@ -70,7 +85,7 @@ func getEventByGroupID( c *gin.Context) {
     groupID := c.Param("groupID")
     filteredEvents := make([]Event, 0)
     for _, event := range events {
-        if event.CreatedBy == groupID {
+        if event.GroupID == groupID {
             filteredEvents = append(filteredEvents, event)
         }
     }
@@ -114,7 +129,7 @@ func createEvent(c *gin.Context) {
         }
         validAcceptedUserIDs = append(validAcceptedUserIDs, user.ID)
     }
-    
+
     newEvent.InvitedUsers = validInvitedUserIDs
     newEvent.AcceptedUsers = validAcceptedUserIDs
     newEvent.ID = uuid.New().String()
